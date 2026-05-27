@@ -13,33 +13,27 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Poke Labs — Your AI Employee That Never Sleeps",
-  description: "Poke monitors your repos, fixes bugs, updates dependencies, reviews PRs, and ships code — autonomously. So you can actually close your laptop.",
+  title: "Poke — Your code, maintained autonomously.",
+  description:
+    "Poke is an AI DevOps agent that monitors your repos, fixes bugs, updates dependencies, and ships code while you sleep.",
   openGraph: {
-    title: "Poke Labs — Your AI Employee That Never Sleeps",
-    description: "Poke monitors your repos, fixes bugs, updates dependencies, reviews PRs, and ships code — autonomously.",
-    url: "https://pokelabs.org",
-    siteName: "Poke Labs",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Poke Labs — Your AI Employee That Never Sleeps",
-    description: "Poke monitors your repos, fixes bugs, updates dependencies, reviews PRs, and ships code — autonomously.",
+    title: "Poke — Your code, maintained autonomously.",
+    description:
+      "An autonomous AI DevOps agent that monitors your repos, fixes bugs, updates dependencies, and ships code while you sleep.",
   },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased dark`}
+      className={`${geistSans.variable} ${geistMono.variable} antialiased dark`}
     >
-      <body className="min-h-full flex flex-col bg-[#09090b] grain">{children}</body>
+      <body>{children}</body>
     </html>
   );
 }

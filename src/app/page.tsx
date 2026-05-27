@@ -1,12 +1,12 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import MetricsTicker from "@/components/MetricsTicker";
+import TrustBar from "@/components/TrustBar";
+import CodeDemo from "@/components/CodeDemo";
 import HowItWorks from "@/components/HowItWorks";
-import Features from "@/components/Features";
-import Comparison from "@/components/Comparison";
+import Differentiated from "@/components/Differentiated";
 import Pricing from "@/components/Pricing";
 import FAQ from "@/components/FAQ";
-import CTA from "@/components/CTA";
+import InstallCTA from "@/components/InstallCTA";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -15,13 +15,13 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        <MetricsTicker />
+        <TrustBar />
+        <CodeDemo />
         <HowItWorks />
-        <Features />
-        <Comparison />
+        <Differentiated />
         <Pricing />
         <FAQ />
-        <CTA />
+        <InstallCTA />
       </main>
       <Footer />
     </>
