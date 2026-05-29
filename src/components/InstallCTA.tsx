@@ -1,3 +1,5 @@
+"use client";
+
 import { ArrowRight, Copy, Check } from "lucide-react";
 import { useState } from "react";
 

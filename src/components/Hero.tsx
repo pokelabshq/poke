@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Copy, Check } from "lucide-react";
 
+
 const installCmd = "npm install -g poke";
 
 export default function Hero() {
