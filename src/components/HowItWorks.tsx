@@ -1,66 +1,34 @@
 const steps = [
   {
-    number: "01",
-    title: "Connect",
-    description: "Run one command in your repo root.",
-    code: "$ npx poke init",
+    cmd: "$ npx poke init",
+    desc: "scans your repo. detects your stack. starts watching.",
   },
   {
-    number: "02",
-    title: "Configure",
-    description: "Set rules in YAML or the dashboard.",
-    code: `# poke.yml
-schedule: "daily"
-auto_pr: true
-labels: ["poke"]`,
+    cmd: "$ npx poke run",
+    desc: "fixes bugs, patches deps, opens prs. or schedule it.",
   },
   {
-    number: "03",
-    title: "Forget",
-    description: "Poke handles the rest. Automatically.",
-    code: "# That's it.",
-    highlight: true,
+    cmd: "# that's it",
+    desc: "review prs. merge. repeat.",
   },
 ];
 
 export default function HowItWorks() {
   return (
     <section className="px-6 py-24 border-t border-[var(--border)]">
-      <div className="max-w-4xl mx-auto">
-        <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight mb-14 text-center">
-          How it works
-        </h2>
+      <div className="max-w-2xl mx-auto">
+        <p className="text-xs font-mono text-[var(--muted)] mb-10">$ how it works</p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {steps.map((step) => (
-            <div
-              key={step.number}
-              className={`rounded-xl border p-6 ${
-                step.highlight
-                  ? "border-[var(--accent)] bg-[var(--accent-muted)]"
-                  : "border-[var(--border)] bg-[var(--surface)]"
-              }`}
-            >
-              <span
-                className={`text-sm font-mono mb-3 block ${
-                  step.highlight ? "text-[var(--accent)]" : "text-[var(--muted)]"
-                }`}
-              >
-                {step.number}
+        <div className="space-y-6">
+          {steps.map((step, i) => (
+            <div key={i} className="flex gap-4 items-start">
+              <span className="text-xs font-mono text-[var(--muted)] mt-1.5 w-4 shrink-0">
+                {(i + 1).toString().padStart(2, "0")}
               </span>
-              <h3
-                className={`text-lg font-semibold tracking-tight mb-2 ${
-                  step.highlight ? "text-[var(--accent)]" : ""
-                }`}
-              >
-                {step.title}
-              </h3>
-              <p className="text-sm text-[var(--muted)] mb-4">
-                {step.description}
-              </p>
-              <pre className="text-xs font-mono bg-black/30 rounded-lg p-3 overflow-x-auto">
-                <code>{step.code}</code>
-              </pre>
+              <div>
+                <code className="text-sm font-mono text-white">{step.cmd}</code>
+                <p className="text-sm text-[var(--muted)] mt-1">{step.desc}</p>
+              </div>
             </div>
           ))}
         </div>

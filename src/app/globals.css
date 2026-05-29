@@ -1,14 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #09090b;
-  --surface: #111113;
-  --border: #1e1e22;
-  --text: #ededed;
-  --muted: #71717a;
-  --accent: #a855f7;
-  --accent-muted: #a855f720;
-  --radius: 8px;
+  --bg: #000000;
+  --surface: #0a0a0a;
+  --border: #1a1a1a;
+  --border-light: #2a2a2a;
+  --text: #fafafa;
+  --muted: #666666;
+  --muted-light: #999999;
+  --accent: #ffffff;
+  --accent-dim: #e5e5e5;
+  --radius: 6px;
 }
 
 @theme inline {
@@ -24,7 +26,7 @@
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: #1e1e22 transparent;
+  scrollbar-color: #222 transparent;
 }
 
 html {
@@ -39,10 +41,20 @@ body {
 }
 
 ::selection {
-  background: var(--accent);
-  color: white;
+  background: #fff;
+  color: #000;
 }
 
 code, pre {
-  font-family: var(--font-mono), "SF Mono", monospace;
+  font-family: var(--font-mono), "SF Mono", "Cascadia Code", monospace;
+}
+
+/* Subtle grain texture */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
 }

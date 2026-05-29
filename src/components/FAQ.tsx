@@ -1,80 +1,62 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 
 const faqs = [
   {
-    q: "What if Poke breaks my code?",
-    a: "Every change Poke makes is submitted as a pull request. You review and approve before anything is merged. Poke never pushes directly to main unless you explicitly configure it to.",
+    q: "what if it breaks my code?",
+    a: "every change is a pull request. you review. you approve. poke never pushes to main unless you tell it to.",
   },
   {
-    q: "Is this another AI wrapper?",
-    a: "No. Poke is a purpose-built agent with persistent memory per repository. It understands your codebase history, learns from your merge patterns, and makes context-aware fixes. It's not a generic LLM bolted onto a cron job.",
+    q: "is this another ai wrapper?",
+    a: "no. poke reads your codebase, understands context, and makes targeted fixes. it's not a generic llm bolted onto a cron job.",
   },
   {
-    q: "What languages and frameworks do you support?",
-    a: "Anything with a package manager — npm, pip, cargo, go mod, gem, apt, and more. If you can express a dependency, Poke can maintain it. Framework-specific support (Next.js, Django, Rails) is actively expanding.",
+    q: "what languages?",
+    a: "anything with a package manager — npm, pip, cargo, go mod, gem, apt. if it has deps, poke maintains it.",
   },
   {
-    q: "Can I self-host?",
-    a: "Yes. Poke is MIT licensed. You can run the CLI locally, host the action on your own runners, and manage everything without ever touching our servers.",
+    q: "can i self-host?",
+    a: "you already are. poke runs in your github actions. your code never leaves your infra.",
   },
   {
-    q: "What about my code privacy?",
-    a: "Poke runs inside your GitHub Actions. Your code never leaves your infrastructure. The agent processes data in-memory during runs and only communicates with GitHub's API. No code is sent to external servers.",
-  },
-  {
-    q: "How is this different from writing a GitHub Action?",
-    a: "A custom Action is a static script. Poke is an AI agent that reads your entire codebase, understands the context of errors, and generates targeted fixes. It's the difference between a spellchecker and an editor.",
-  },
-  {
-    q: "Can I limit what Poke can do?",
-    a: "Absolutely. Configure per-repo permissions: restrict which files it can modify, which dependency types to touch, what hours it can run, and whether it needs approval for certain operations. Fine-grained control out of the box.",
-  },
-  {
-    q: "What happens if I cancel?",
-    a: "The CLI keeps working forever — it's MIT licensed. You only lose access to the cloud dashboard and automated scheduling. Your local setup, configs, and workflow files remain intact.",
+    q: "why is it free?",
+    a: "open source software should be free. we'll offer optional hosted features later, but the core tool is and will always be mit licensed.",
   },
 ];
 
 export default function FAQ() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <section id="faq" className="px-6 py-24 border-t border-[var(--border)]">
+    <section className="px-6 py-24 border-t border-[var(--border)]">
       <div className="max-w-2xl mx-auto">
-        <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight mb-3 text-center">
-          FAQ
-        </h2>
-        <p className="text-[var(--muted)] text-center mb-10 max-w-lg mx-auto">
-          Questions a developer would actually ask.
-        </p>
+        <p className="text-xs font-mono text-[var(--muted)] mb-10">$ faq</p>
 
-        <div className="space-y-2">
+        <div className="border-t border-[var(--border)]">
           {faqs.map((faq, i) => {
-            const isOpen = openIndex === i;
+            const isOpen = open === i;
             return (
-              <div
-                key={i}
-                className="border border-[var(--border)] rounded-lg overflow-hidden"
-              >
+              <div key={i} className="border-b border-[var(--border)]">
                 <button
-                  onClick={() => setOpenIndex(isOpen ? null : i)}
-                  className="w-full flex items-center justify-between px-5 py-4 text-sm font-medium text-left text-[var(--text)] hover:bg-[var(--surface)] transition-colors cursor-pointer"
+                  onClick={() => setOpen(isOpen ? null : i)}
+                  className="w-full flex items-center justify-between py-4 text-left cursor-pointer group"
                 >
-                  <span>{faq.q}</span>
-                  <ChevronDown
-                    size={16}
-                    className={`text-[var(--muted)] transition-transform duration-200 ${
-                      isOpen ? "rotate-180" : ""
+                  <span className="text-sm font-mono text-white group-hover:underline">
+                    {faq.q}
+                  </span>
+                  <ChevronRight
+                    size={14}
+                    className={`text-[var(--muted)] transition-transform duration-200 shrink-0 ml-4 ${
+                      isOpen ? "rotate-90" : ""
                     }`}
                   />
                 </button>
                 {isOpen && (
-                  <div className="px-5 pb-4 text-sm text-[var(--muted)] leading-relaxed">
+                  <p className="text-sm text-[var(--muted)] leading-relaxed pb-4 pr-8">
                     {faq.a}
-                  </div>
+                  </p>
                 )}
               </div>
             );

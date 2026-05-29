@@ -1,43 +1,33 @@
-const problems = [
+const points = [
   {
-    contrast: "You're a builder, not a DevOps engineer.",
-    hook: "Poke handles the plumbing.",
-    body: "You started building software to ship features, not wrangle CI/CD pipelines, dependency graphs, and security patches. Poke automates the maintenance so you can focus on what matters.",
+    old: "Dependabot opens PRs you ignore.",
+    new: "Poke fixes the actual code, not just the version number.",
   },
   {
-    contrast: "Dependabot opens PRs. Poke fixes the root cause.",
-    hook: "We understand your code, not just your lockfile.",
-    body: "Automated dependency tools surface alerts. Poke reads your code, understands the breaking change, applies the fix, and opens a PR that actually passes CI. It doesn't just tell you there's a problem — it solves it.",
+    new: "Runs as a GitHub Action. No servers. No dashboard. No SaaS.",
   },
   {
-    contrast: "Claude Code needs your hand. Poke runs on its own.",
-    hook: "Autonomous by design, interactive when needed.",
-    body: "Other AI coding tools require you to sit at a terminal and review every prompt. Poke runs as a scheduled GitHub Action, scans your entire repo, makes targeted fixes, and opens PRs for review. You wake up to a healthier codebase.",
+    old: "AI coding tools need you at a terminal.",
+    new: "Poke runs on a schedule. You review PRs with your morning coffee.",
   },
 ];
 
 export default function Differentiated() {
   return (
     <section className="px-6 py-24 border-t border-[var(--border)]">
-      <div className="max-w-4xl mx-auto">
-        <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight mb-3 text-center">
-          Why Poke exists
-        </h2>
-        <p className="text-[var(--muted)] text-center mb-14 max-w-lg mx-auto">
-          Three problems. One answer.
-        </p>
+      <div className="max-w-2xl mx-auto">
+        <p className="text-xs font-mono text-[var(--muted)] mb-10">$ why not just...</p>
 
-        <div className="space-y-12">
-          {problems.map((item, i) => (
-            <div key={i} className="border-l-2 border-[var(--border)] pl-6">
-              <p className="text-sm text-[var(--muted)] mb-1.5 line-through decoration-[var(--muted)]/40">
-                {item.contrast}
-              </p>
-              <h3 className="text-xl font-semibold tracking-tight mb-3 text-[var(--text)]">
-                {item.hook}
-              </h3>
-              <p className="text-[var(--muted)] leading-relaxed max-w-xl">
-                {item.body}
+        <div className="space-y-10">
+          {points.map((point, i) => (
+            <div key={i} className="font-mono">
+              {point.old && (
+                <p className="text-sm text-[var(--muted)] line-through mb-1.5">
+                  {point.old}
+                </p>
+              )}
+              <p className="text-sm text-white">
+                → {point.new}
               </p>
             </div>
           ))}

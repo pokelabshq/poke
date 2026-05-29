@@ -1,59 +1,60 @@
 "use client";
 
 import { useState } from "react";
-import { Copy, Check, ArrowRight, GitBranch } from "lucide-react";
+import { Copy, Check } from "lucide-react";
 
-function CopyButton({ text }: { text: string }) {
+const installCmd = "npm install -g poke";
+
+export default function Hero() {
   const [copied, setCopied] = useState(false);
 
   return (
-    <button
-      onClick={() => {
-        navigator.clipboard.writeText(text);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 1500);
-      }}
-      className="flex items-center gap-1.5 text-xs transition-colors text-[var(--muted)] hover:text-[var(--text)] cursor-pointer"
-      aria-label="Copy install command"
-    >
-      {copied ? <Check size={14} /> : <Copy size={14} />}
-      {copied ? "Copied" : "Copy"}
-    </button>
-  );
-}
+    <section className="min-h-screen flex items-center justify-center px-6 pt-12">
+      <div className="max-w-2xl mx-auto">
+        {/* ASCII art logo */}
+        <pre className="text-[10px] sm:text-xs font-mono text-[var(--muted)] leading-none mb-12 select-none">
+{` ____   ___  _   _ _____
+|  _ \\ / _ \\| | | | ____|
+| |_) | | | | |_| |  _|
+|  __/| |_| |  _  |_| |
+|_|    \\___/|_| |_(_)`}
+        </pre>
 
-export default function Hero() {
-  return (
-    <section className="min-h-[40vh] flex items-center justify-center px-6 pt-24 pb-16">
-      <div className="max-w-2xl mx-auto text-center">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-sm text-[var(--muted)] mb-8">
-          <GitBranch size={14} />
-          Works with GitHub
-        </div>
-
-        <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight leading-[1.1] mb-5 text-[var(--text)]">
-          Your code, maintained autonomously.
+        <h1 className="text-4xl sm:text-5xl font-mono font-bold tracking-tight leading-[1.1] mb-6">
+          your code,<br />
+          maintained<br />
+          autonomously.
         </h1>
 
-        <p className="text-[var(--muted)] text-lg leading-relaxed max-w-xl mx-auto mb-10">
-          Poke is an AI DevOps agent that monitors your repos, fixes bugs,
-          updates dependencies, and ships code while you sleep.
+        <p className="text-[var(--muted)] text-base leading-relaxed max-w-md mb-10">
+          poke watches your repos. fixes bugs. updates deps. opens prs.
+          you wake up to a healthier codebase. no dashboard required.
         </p>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-          <a
-            href="#install"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[var(--accent)] text-white text-sm font-medium hover:brightness-110 transition-all"
-          >
-            Install Poke
-            <ArrowRight size={16} />
-          </a>
-
-          <div className="flex items-center gap-3 px-4 py-2.5 rounded-lg border border-[var(--border)] bg-[var(--surface)] text-sm font-mono">
+        <div className="flex flex-col sm:flex-row items-start gap-3">
+          <div className="flex items-center gap-3 px-4 py-2.5 rounded border border-[var(--border)] bg-[var(--surface)] font-mono text-sm">
             <span className="text-[var(--muted)]">$</span>
-            <span className="text-[var(--text)]">npm install -g poke</span>
-            <CopyButton text="npm install -g poke" />
+            <span className="text-white">{installCmd}</span>
+            <button
+              onClick={() => {
+                navigator.clipboard.writeText(installCmd);
+                setCopied(true);
+                setTimeout(() => setCopied(false), 1500);
+              }}
+              className="text-[var(--muted)] hover:text-white transition-colors ml-1 cursor-pointer"
+              aria-label="Copy install command"
+            >
+              {copied ? <Check size={14} /> : <Copy size={14} />}
+            </button>
           </div>
+        </div>
+
+        <div className="flex items-center gap-4 mt-8 text-xs font-mono text-[var(--muted)]">
+          <span>npm</span>
+          <span className="text-[var(--border)]">·</span>
+          <span>MIT</span>
+          <span className="text-[var(--border)]">·</span>
+          <span>works offline</span>
         </div>
       </div>
     </section>

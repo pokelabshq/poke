@@ -1,6 +1,5 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import TrustBar from "@/components/TrustBar";
 import CodeDemo from "@/components/CodeDemo";
 import HowItWorks from "@/components/HowItWorks";
 import Differentiated from "@/components/Differentiated";
@@ -15,7 +14,6 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        <TrustBar />
         <CodeDemo />
         <HowItWorks />
         <Differentiated />
