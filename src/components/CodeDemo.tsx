@@ -59,7 +59,7 @@ export default function CodeDemo() {
   return (
     <section id="how" className="px-6 py-24 border-t border-[var(--border)]">
       <div className="max-w-2xl mx-auto">
-        <p className="text-xs font-mono text-[var(--muted)] mb-2">$ what does it actually do</p>
+        <p className="text-xs font-mono text-[var(--muted)] mb-2">$ see it in action</p>
 
         {/* Tab bar */}
         <div className="flex border border-[var(--border)] rounded-t font-mono text-xs">

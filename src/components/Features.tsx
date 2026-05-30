@@ -5,7 +5,7 @@ const features = [
   },
   {
     title: "Security Fixes",
-    desc: "Monitors CVE databases. When a vulnerability drops, Poke patches it, opens a PR, and notifies you. No waiting for bots.",
+    desc: "Monitors CVE databases. When a vulnerability drops, patches land in a PR before you finish your coffee.",
   },
   {
     title: "Bug Detection",
@@ -13,15 +13,15 @@ const features = [
   },
   {
     title: "CI Maintenance",
-    desc: "Keeps your CI/CD configs up to date. GitHub Actions versions, Node runners, deprecated syntax — Poke handles the plumbing.",
+    desc: "Keeps your CI/CD configs up to date. GitHub Actions versions, Node runners, deprecated syntax — handled.",
   },
   {
     title: "PR Automation",
-    desc: "Opens PRs with clear descriptions. Labels them. Assigns reviewers. Links to the issue. Does the busywork so you don't have to.",
+    desc: "Opens PRs with clear descriptions. Labels them. Assigns reviewers. Links to the issue. Does the busywork.",
   },
   {
-    title: "Works Offline",
-    desc: "Runs entirely in your GitHub Actions. No external servers. No SaaS dashboard. Your code never leaves your infrastructure.",
+    title: "Open Source",
+    desc: "Everything we build is MIT licensed. Run it yourself. Host it on your own hardware. No account required.",
   },
 ];
 
@@ -29,7 +29,7 @@ export default function Features() {
   return (
     <section className="px-6 py-24 border-t border-[var(--border)]">
       <div className="max-w-2xl mx-auto">
-        <p className="text-xs font-mono text-[var(--muted)] mb-10">$ features</p>
+        <p className="text-xs font-mono text-[var(--muted)] mb-10">$ what we build</p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {features.map((f, i) => (
