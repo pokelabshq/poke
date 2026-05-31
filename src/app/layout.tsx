@@ -1,21 +1,16 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+  variable: "--font-mono",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "Poke Labs — AI Lab in Toronto",
+  title: "Poke Labs",
   description:
-    "Poke Labs is a Toronto-based AI lab building autonomous developer tools. We create open-source AI agents that maintain your code, review decisions, and ship software — while you sleep.",
+    "Poke Labs builds autonomous AI tools for software development. We create open-source agents that maintain your code, review decisions, and ship software — while you sleep. Based in Toronto, Canada.",
   keywords: [
     "Poke Labs",
     "AI lab",
@@ -26,8 +21,6 @@ export const metadata: Metadata = {
     "AI Council",
     "autonomous coding",
     "DevOps automation",
-    "Alexander Wondwossen",
-    "TheAlxLabs",
   ],
   authors: [{ name: "Poke Labs" }],
   creator: "Poke Labs",
@@ -37,23 +30,23 @@ export const metadata: Metadata = {
     locale: "en_CA",
     url: "https://pokelabs.org",
     siteName: "Poke Labs",
-    title: "Poke Labs — AI Lab in Toronto",
+    title: "Poke Labs",
     description:
-      "A Toronto-based AI lab building autonomous developer tools. Open-source AI agents that maintain your code, review decisions, and ship software.",
+      "Poke Labs builds autonomous AI tools for software development. Open-source agents that maintain your code while you sleep.",
     images: [
       {
         url: "https://pokelabs.org/og.png",
         width: 1200,
         height: 630,
-        alt: "Poke Labs — AI Lab in Toronto",
+        alt: "Poke Labs",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Poke Labs — AI Lab in Toronto",
+    title: "Poke Labs",
     description:
-      "A Toronto-based AI lab building autonomous developer tools. Open-source AI agents that maintain your code while you sleep.",
+      "Poke Labs builds autonomous AI tools for software development. Open-source agents that maintain your code while you sleep.",
     images: ["https://pokelabs.org/og.png"],
   },
   robots: {
@@ -79,13 +72,8 @@ const jsonLd = {
   url: "https://pokelabs.org",
   logo: "https://pokelabs.org/icon.svg",
   description:
-    "Poke Labs is a Toronto-based AI lab building autonomous developer tools. Open-source AI agents that maintain your code while you sleep.",
+    "Poke Labs builds autonomous AI tools for software development. Open-source agents that maintain your code while you sleep.",
   foundingDate: "2026",
-  founder: {
-    "@type": "Person",
-    name: "Alexander Wondwossen",
-    url: "https://thealxlabs.ca",
-  },
   foundingLocation: {
     "@type": "Place",
     address: {
@@ -97,7 +85,6 @@ const jsonLd = {
   },
   sameAs: [
     "https://github.com/pokelabshq",
-    "https://thealxlabs.ca",
     "https://pokelabs.org",
   ],
 };
@@ -108,14 +95,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} antialiased dark`}
-    >
+    <html lang="en" className={`${geistMono.variable} antialiased dark`}>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/icon.svg" type="image/svg+xml" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <meta name="theme-color" content="#000000" />
         <script
           type="application/ld+json"
