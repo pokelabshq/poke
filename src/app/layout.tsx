@@ -13,21 +13,21 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Poke Labs — AI DevOps Company",
+  title: "Poke Labs — AI Lab in Toronto",
   description:
-    "Poke Labs builds autonomous AI tools for software development. We make open-source DevOps agents that maintain your code, fix bugs, update dependencies, and ship updates — while you sleep. Based in Toronto.",
+    "Poke Labs is a Toronto-based AI lab building autonomous developer tools. We create open-source AI agents that maintain your code, review decisions, and ship software — while you sleep.",
   keywords: [
     "Poke Labs",
-    "AI DevOps",
-    "autonomous coding",
-    "open source",
-    "software automation",
-    "AI agent",
-    "dependency management",
-    "bug detection",
-    "CI/CD automation",
+    "AI lab",
     "Toronto",
+    "open source",
+    "AI agent",
     "developer tools",
+    "AI Council",
+    "autonomous coding",
+    "DevOps automation",
+    "Alexander Wondwossen",
+    "TheAlxLabs",
   ],
   authors: [{ name: "Poke Labs" }],
   creator: "Poke Labs",
@@ -37,23 +37,23 @@ export const metadata: Metadata = {
     locale: "en_CA",
     url: "https://pokelabs.org",
     siteName: "Poke Labs",
-    title: "Poke Labs — AI DevOps Company",
+    title: "Poke Labs — AI Lab in Toronto",
     description:
-      "Poke Labs builds autonomous AI tools for software development. Open-source DevOps agents that maintain your code while you sleep.",
+      "A Toronto-based AI lab building autonomous developer tools. Open-source AI agents that maintain your code, review decisions, and ship software.",
     images: [
       {
         url: "https://pokelabs.org/og.png",
         width: 1200,
         height: 630,
-        alt: "Poke Labs — AI DevOps Company",
+        alt: "Poke Labs — AI Lab in Toronto",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Poke Labs — AI DevOps Company",
+    title: "Poke Labs — AI Lab in Toronto",
     description:
-      "Poke Labs builds autonomous AI tools for software development. Open-source DevOps agents that maintain your code while you sleep.",
+      "A Toronto-based AI lab building autonomous developer tools. Open-source AI agents that maintain your code while you sleep.",
     images: ["https://pokelabs.org/og.png"],
   },
   robots: {
@@ -79,8 +79,13 @@ const jsonLd = {
   url: "https://pokelabs.org",
   logo: "https://pokelabs.org/icon.svg",
   description:
-    "Poke Labs builds autonomous AI tools for software development. Open-source DevOps agents that maintain your code while you sleep.",
+    "Poke Labs is a Toronto-based AI lab building autonomous developer tools. Open-source AI agents that maintain your code while you sleep.",
   foundingDate: "2026",
+  founder: {
+    "@type": "Person",
+    name: "Alexander Wondwossen",
+    url: "https://thealxlabs.ca",
+  },
   foundingLocation: {
     "@type": "Place",
     address: {
@@ -92,6 +97,7 @@ const jsonLd = {
   },
   sameAs: [
     "https://github.com/pokelabshq",
+    "https://thealxlabs.ca",
     "https://pokelabs.org",
   ],
 };

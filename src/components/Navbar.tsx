@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 
 export default function Navbar() {
@@ -9,9 +11,15 @@ export default function Navbar() {
         </Link>
 
         <div className="flex items-center gap-6">
-          <a href="#how" className="text-xs font-mono text-[var(--muted)] hover:text-white transition-colors">
-            how
-          </a>
+          <Link href="/#products" className="text-xs font-mono text-[var(--muted)] hover:text-white transition-colors">
+            products
+          </Link>
+          <Link href="/#about" className="text-xs font-mono text-[var(--muted)] hover:text-white transition-colors">
+            about
+          </Link>
+          <Link href="/#approach" className="text-xs font-mono text-[var(--muted)] hover:text-white transition-colors">
+            approach
+          </Link>
           <a
             href="https://github.com/pokelabshq"
             target="_blank"
