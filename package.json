@@ -1,27 +1,17 @@
 {
-  "name": "pokelabs",
-  "version": "0.1.0",
-  "private": true,
+  "name": "@pokelabshq/poke-cli",
+  "version": "1.0.0",
+  "description": "Poke Labs CLI — manage Poke Labs services from the terminal",
+  "main": "poke.js",
+  "bin": { "poke": "./poke.js" },
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
+    "test": "node poke.js help"
   },
-  "dependencies": {
-    "lucide-react": "^1.16.0",
-    "next": "16.2.6",
-    "react": "19.2.4",
-    "react-dom": "19.2.4"
-  },
-  "devDependencies": {
-    "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "16.2.6",
-    "tailwindcss": "^4",
-    "typescript": "^5"
+  "keywords": ["pokelabs", "ai-council", "cli", "link-preview"],
+  "author": "Poke Labs <hello@pokelabs.org>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pokelabshq/poke.git"
   }
 }
