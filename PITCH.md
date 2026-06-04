@@ -1,56 +1,76 @@
 # Poke Labs — Investor Pitch
 
-## The Problem
+## The One-Liner
+**Poke Labs builds autonomous AI agents that ship real software — and we're open source.**
 
-Software maintenance is broken. Dependencies go stale. Security vulnerabilities pile up. Code reviews bottleneck on human availability. Small teams and solo developers spend 30% of their time on maintenance instead of building.
+## The Problem
+- AI agents are stuck in chat windows. They talk about code but don't ship it.
+- Developer tools are fragmented. 13 micro-services, 13 repos, 13 CLIs to learn.
+- Open source maintainers burn out doing repetitive work (dependency updates, CI fixes, docs).
 
 ## The Solution
+**Council** — a micro-services platform where every service is:
+- Built and maintained by AI agents (Poke)
+- Open source (MIT)
+- Zero external API costs (all stdlib)
+- Deployable with one command (`docker compose up`)
 
-**Poke Labs builds autonomous AI agents that maintain your code, review decisions, and ship software — while you sleep.**
-
-Our flagship product is an open-source platform of micro-services and AI agents that:
-- Auto-update dependencies via Dependabot with smart merge policies
-- Monitor service health across your entire stack
-- Provide multi-agent deliberation for technical decisions
-- Generate code, docs, and tests on demand
+**Poke CLI** — a single terminal command to use all 13 services:
+```
+$ poke preview https://github.com
+$ poke sentiment "I love this!"
+$ poke qr "https://pokelabs.org"
+```
 
 ## Traction
-
-- **2 open-source repos** with active development (council, poke)
-- **12 micro-services** built and deployed (link-preview, keyword extraction, summarization, QR generation, DNS checking, color palettes, URL shortener, template generation, health aggregation, JSON-to-TypeScript, GitHub webhooks)
-- **API gateway** routing all services behind a single port
-- **CLI tool** (`ai-council`) for terminal-based multi-agent deliberation
-- **Status dashboard** for real-time service monitoring
-- All code MIT licensed, zero-cost to run
+- 4 GitHub repos, all active
+- 13 micro-services, all functional
+- 1 CLI tool, npm-ready
+- Auto-merge CI/CD for dependency management
+- Zero dollars spent on infrastructure
 
 ## Market
-
-The DevOps automation market is $15B+ and growing. Developer tools are the fastest-growing SaaS category. Open-source AI infrastructure is the new moat.
+- Developer tools: $25B+ market
+- AI agents: $15B+ market (growing 40% YoY)
+- Open source tooling: Every developer, every company
 
 ## Business Model
+1. **Hosted Council** — managed micro-services at pokelabs.org (SaaS)
+2. **Enterprise support** — custom agent deployments
+3. **Premium CLI** — advanced features, team management
+4. **Marketplace** — third-party services in the Council ecosystem
 
-- **Free tier**: Open-source micro-services with generous rate limits
-- **Pro tier**: Hosted gateway with higher limits, priority support, custom personas
-- **Enterprise**: Self-hosted agents with private integrations, SLA guarantees
+## Competitive Advantage
+- **AI-native**: Built by AI, for AI. Not a retrofit.
+- **Open source**: Trust through transparency. MIT licensed.
+- **Zero-cost infra**: No API keys, no external dependencies.
+- **Full stack**: Services + gateway + CLI + CI + brand. Shipped in days.
 
 ## Team
+- **Alexander Wondwossen** — Founder, 13, Toronto
+  - Building software since age 8
+  - Open source contributor
+  - Self-taught full-stack developer
+- **Poke** — AI Co-founder
+  - Autonomous agent running on Conway Cloud
+  - Ships code 24/7
+  - Writes tests, docs, CI, and infrastructure
 
-**Alexander Wondwossen** — Founder, 13 years old, Toronto. Built the entire platform solo with AI assistance. Active in the open-source community. Committed to transparent, ethical AI development.
+## The Ask
+**$50K pre-seed** to:
+- Host Council services publicly (pokelabs.org)
+- Publish `poke` CLI to npm
+- Build monitoring and analytics
+- Hire first intern
 
-## Ask
-
-We're looking for $50K in pre-seed funding to:
-1. Host services on reliable infrastructure (currently running on personal sandbox)
-2. Build a hosted gateway service with auth and rate limiting
-3. Hire first engineer (part-time)
-4. Launch developer community and grow user base
+## Why Now
+AI agents are crossing the threshold from "interesting demo" to "useful tool." Poke Labs is building the infrastructure layer for the agent economy — open source, from day one.
 
 ## Contact
-
-- Web: https://pokelabs.org
-- GitHub: https://github.com/pokelabshq
-- Email: hello@pokelabs.org
+- **Web**: pokelabs.org
+- **GitHub**: github.com/pokelabshq
+- **Email**: alexander@pokelabs.org
 
 ---
 
-*Built with ❤️ by Poke Labs. MIT License. All code is open source.*
+*Poke Labs — We poke at the future of software.* 🦉
