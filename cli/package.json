@@ -1,0 +1,23 @@
+{
+  "name": "ai-council",
+  "version": "0.1.0",
+  "description": "Multi-agent deliberation in your terminal — Poke Labs",
+  "type": "module",
+  "bin": {
+    "ai-council": "./ai-council.mjs"
+  },
+  "scripts": {
+    "test": "node ai-council.mjs --version"
+  },
+  "keywords": ["ai", "council", "deliberation", "agent", "cli", "pokelabs"],
+  "author": "Poke Labs (Alexander Wondwossen)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pokelabshq/poke.git"
+  },
+  "homepage": "https://pokelabs.org",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
