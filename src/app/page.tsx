@@ -371,6 +371,8 @@ export default function Page() {
       </section>
 
       {/* CONTACT */}
+
+      <ApiDemo />
       <section id="contact" className="border-t border-[#1a1a1a] bg-[#050505]">
         <div className="max-w-5xl mx-auto px-6 py-24 sm:py-32">
           <FadeIn>
