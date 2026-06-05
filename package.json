@@ -3,11 +3,18 @@
   "version": "1.0.0",
   "description": "Poke Labs CLI — manage Poke Labs services from the terminal",
   "main": "poke.js",
-  "bin": { "poke": "./poke.js" },
-  "scripts": {
-    "test": "node poke.js help"
+  "bin": {
+    "poke": "./poke.js"
   },
-  "keywords": ["pokelabs", "ai-council", "cli", "link-preview"],
+  "scripts": {
+    "test": "node test.js"
+  },
+  "keywords": [
+    "pokelabs",
+    "ai-council",
+    "cli",
+    "link-preview"
+  ],
   "author": "Poke Labs <hello@pokelabs.org>",
   "license": "MIT",
   "repository": {
