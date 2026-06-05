@@ -1,120 +1,169 @@
 #!/usr/bin/env node
+/**
+ * @pokelabshq/poke-cli v1.0.0
+ * Poke Labs CLI — Manage Poke Labs services from the terminal
+ * 
+ * Commands:
+ *   status              Check all service health
+ *   preview <url>       Preview a URL (title, desc, image)
+ *   repos               List all pokelabshq repos
+ *   deps                Check for outdated dependencies
+ *   deploy              Restart all services
+ *   help                Show this help
+ * 
+ * Examples:
+ *   poke status
+ *   poke preview https://github.com
+ *   poke deps
+ */
+
 const https = require('https');
 const http = require('http');
 const { execSync } = require('child_process');
 
-const args = process.argv.slice(2);
-const cmd = args[0] || 'help';
+const VERSION = '1.0.0';
+const BASE = 'https://api.github.com';
 
-function fetchJSON(url) {
+const SERVICES = [
+  { name: 'Link Preview API', port: 8765, path: '/api/health' },
+  { name: 'Poke Labs Site',  port: 8766, path: '/api/health' },
+  { name: 'Poke Bot',        port: 8770, path: '/' },
+  { name: 'Discord Bot',     port: 8775, path: '/api/health' },
+  { name: 'Telegram Bot',    port: 8777, path: '/api/health' },
+  { name: 'Skills Hub',      port: 8780, path: '/api/health' },
+  { name: 'Pricing API',     port: 8790, path: '/api/health' },
+];
+
+function httpGet(url, opts = {}) {
   return new Promise((resolve, reject) => {
     const mod = url.startsWith('https') ? https : http;
-    mod.get(url, { headers: { 'User-Agent': 'poke-cli/1.0' } }, res => {
+    const req = mod.get(url, { timeout: 5000, ...opts }, res => {
       let d = '';
       res.on('data', c => d += c);
-      res.on('end', () => { try { resolve(JSON.parse(d)); } catch(e) { resolve(d); } });
-    }).on('error', reject);
-  });
-}
-
-function httpPost(url, body) {
-  return new Promise((resolve, reject) => {
-    const u = new URL(url);
-    const data = JSON.stringify(body);
-    const req = http.request({
-      hostname: u.hostname, port: u.port || 80, path: u.pathname,
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Content-Length': data.length }
-    }, res => {
-      let d = '';
-      res.on('data', c => d += c);
-      res.on('end', () => { try { resolve(JSON.parse(d)); } catch(e) { resolve(d); } });
+      res.on('end', () => resolve({ status: res.statusCode, body: d }));
     });
     req.on('error', reject);
-    req.write(data);
-    req.end();
+    req.on('timeout', () => { req.destroy(); reject(new Error('timeout')); });
   });
 }
 
-const API = 'http://localhost:8766';
+async function checkService(svc) {
+  try {
+    const r = await httpGet(`http://127.0.0.1:${svc.port}${svc.path}`);
+    return r.status >= 200 && r.status < 400;
+  } catch { return false; }
+}
 
-async function status() {
-  console.log('🔍 Poke Labs Status\n');
-  const checks = [
-    { name: 'Link Preview API', url: `${API}/api/health`, port: 8766 },
-    { name: 'Poke Bot', url: 'http://localhost:8770/', port: 8770 },
+async function cmdStatus() {
+  console.log(`\n🐾 Poke Labs Service Status v${VERSION}\n`);
+  let up = 0;
+  for (const svc of SERVICES) {
+    const ok = await checkService(svc);
+    if (ok) up++;
+    console.log(`  ${ok ? '✅' : '❌'} ${svc.name.padEnd(20)} :${svc.port}`);
+  }
+  console.log(`\n  ${up}/${SERVICES.length} services online\n`);
+}
+
+async function cmdPreview(url) {
+  if (!url) { console.log('Usage: poke preview <url>'); return; }
+  try {
+    const r = await httpGet(`http://127.0.0.1:8766/api/preview`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+    });
+    // Actually use POST properly
+    const data = JSON.stringify({ url });
+    const result = await new Promise((resolve, reject) => {
+      const req = http.request('http://127.0.0.1:8766/api/preview', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Content-Length': data.length },
+        timeout: 10000,
+      }, res => {
+        let d = '';
+        res.on('data', c => d += c);
+        res.on('end', () => resolve(d));
+      });
+      req.on('error', reject);
+      req.write(data);
+      req.end();
+    });
+    const j = JSON.parse(result);
+    console.log(`\n🔗 ${j.title || 'No title'}`);
+    console.log(`   ${j.description || 'No description'}`);
+    console.log(`   Image: ${j.image || 'None'}`);
+    console.log(`   Site: ${j.site_name || new URL(url).host}\n`);
+  } catch (e) {
+    console.log(`\n⚠️  Preview service unavailable: ${e.message}`);
+    console.log(`   Make sure the Poke Labs Site is running on :8766\n`);
+  }
+}
+
+async function cmdRepos() {
+  console.log('\n📦 Poke Labs Repositories:\n');
+  try {
+    const r = await httpGet(`${BASE}/users/pokelabshq/repos?per_page=30&sort=updated`);
+    const repos = JSON.parse(r.body);
+    if (Array.isArray(repos)) {
+      repos.forEach(r => {
+        const lang = r.language || '—';
+        const stars = r.stargazers_count || 0;
+        const updated = r.updated_at ? r.updated_at.slice(0, 10) : '—';
+        console.log(`  ${r.name.padEnd(20)} ${lang.padEnd(12)} ⭐${stars}  ${updated}`);
+        if (r.description) console.log(`    ${r.description}`);
+      });
+    } else {
+      console.log('  (API rate limited or unavailable)');
+    }
+  } catch (e) {
+    console.log(`  ⚠️  GitHub API error: ${e.message}`);
+  }
+  console.log('');
+}
+
+async function cmdDeps() {
+  console.log('\n📋 Dependency Check:\n');
+  const dirs = [
+    { name: 'poke', path: '/home/alx/repo-work/poke' },
+    { name: 'council', path: '/home/alx/repo-work/council' },
   ];
-  for (const c of checks) {
+  for (const dir of dirs) {
     try {
-      await fetchJSON(c.url);
-      console.log(`  ✅ ${c.name} — :${c.port}`);
-    } catch(e) {
-      console.log(`  ❌ ${c.name} — :${c.port} (DOWN)`);
+      const out = execSync('npm outdated --json 2>/dev/null || true', {
+        cwd: dir.path, timeout: 15000, encoding: 'utf8'
+      });
+      const pkgs = JSON.parse(out || '{}');
+      const keys = Object.keys(pkgs);
+      if (keys.length === 0) {
+        console.log(`  ✅ ${dir.name}: All dependencies up to date`);
+      } else {
+        console.log(`  ⚠️  ${dir.name}: ${keys.length} outdated packages`);
+        keys.slice(0, 5).forEach(k => {
+          const p = pkgs[k];
+          console.log(`     ${k}: ${p.current} → ${p.latest}`);
+        });
+        if (keys.length > 5) console.log(`     ... and ${keys.length - 5} more`);
+      }
+    } catch (e) {
+      console.log(`  ⚠️  ${dir.name}: Could not check (${e.message.slice(0, 60)})`);
     }
   }
-  console.log('\n  Run: poke deploy  (to restart services)');
+  console.log('');
 }
 
-async function preview() {
-  const url = args[1];
-  if (!url) { console.log('Usage: poke preview <url>'); process.exit(1); }
+async function cmdDeploy() {
+  console.log('\n🚀 Deploying Poke Labs services...\n');
   try {
-    const d = await httpPost(`${API}/api/preview`, { url });
-    console.log(`\n  📄 ${d.title || '(no title)'}`);
-    console.log(`  📝 ${(d.description || '(no desc)').slice(0, 120)}`);
-    if (d.image) console.log(`  🖼️  ${d.image}`);
-    console.log(`  🌐 ${d.site_name || new URL(url).hostname}`);
-    if (d.free_remaining !== undefined) console.log(`  💳 ${d.free_remaining} free left`);
-    if (d.wallet) console.log(`  💰 Send USDC to ${d.wallet} (Base)`);
-  } catch(e) {
-    console.log('  ❌ API unavailable. Run: poke deploy');
+    execSync('bash /home/alx/start.sh', { timeout: 30000, stdio: 'inherit' });
+  } catch (e) {
+    console.log(`\n⚠️  Deploy error: ${e.message}`);
+    console.log('   Services may need to be started manually.\n');
   }
 }
 
-async function repos() {
-  try {
-    const data = await fetchJSON('https://api.github.com/users/pokelabshq/repos?per_page=30&sort=updated');
-    console.log('📦 Poke Labs Repos\n');
-    data.filter(r => !r.fork).forEach(r => {
-      console.log(`  ${r.name.padEnd(15)} ${r.language || '?'}  ⭐${r.stargazers_count || 0}  ${r.updated_at?.slice(0,10)}`);
-    });
-  } catch(e) { console.log('  ❌ GitHub API error'); }
-}
-
-async function depscheck() {
-  console.log('📦 Dependency Check\n');
-  const repos = ['council', 'poke'];
-  for (const repo of repos) {
-    try {
-      const raw = execSync(
-        `cd /home/alx/repo-work/${repo} && npm outdated --json 2>/dev/null || echo "{}"`,
-        { encoding: 'utf8', timeout: 15000 }
-      );
-      const data = JSON.parse(raw);
-      const keys = Object.keys(data);
-      if (!keys.length) {
-        console.log(`  ✅ ${repo} — up to date`);
-      } else {
-        console.log(`  ⚠️  ${repo} — ${keys.length} outdated:`);
-        keys.forEach(k => {
-          const d = data[k];
-          console.log(`     ${k}: ${d.current} → ${d.latest}`);
-        });
-      }
-    } catch(e) { console.log(`  ❌ ${repo} — check failed`); }
-  }
-}
-
-function deploy() {
-  console.log('🚀 Deploying...\n');
-  try {
-    execSync('bash /home/alx/start.sh', { stdio: 'inherit' });
-  } catch(e) { console.log('  ❌ deploy failed'); }
-}
-
-function help() {
+function cmdHelp() {
   console.log(`
-  @pokelabshq/poke-cli v1.0.0
+  @pokelabshq/poke-cli v${VERSION}
 
   Commands:
     status              Check all service health
@@ -132,16 +181,8 @@ function help() {
   `);
 }
 
-(async () => {
-  try {
-    switch (cmd) {
-      case 'status':   await status(); break;
-      case 'preview':  await preview(); break;
-      case 'repos':    await repos(); break;
-      case 'deps':     await depscheck(); break;
-      case 'deploy':   deploy(); break;
-      case 'help':
-      default:         help(); break;
-    }
-  } catch(e) { console.error('Error:', e.message); process.exit(1); }
-})();
+// Main
+const [,, cmd, ...args] = process.argv;
+const commands = { status: cmdStatus, preview: cmdPreview, repos: cmdRepos, deps: cmdDeps, deploy: cmdDeploy, help: cmdHelp };
+const fn = commands[cmd] || cmdHelp;
+fn(args[0]).catch(e => { console.error('Error:', e.message); process.exit(1); });
