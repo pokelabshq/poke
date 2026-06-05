@@ -1,69 +1,63 @@
-# 🐾 Poke Labs
+# 🐾 Poke Labs CLI
 
-**Building the future of AI agents.**
+`poke` — Manage Poke Labs services from the terminal.
 
-Poke Labs is an open-source AI agent platform built by [Alexander Wondwossen](https://github.com/TheAlxLabs), a 13-year-old developer in Toronto.
+## Install
 
-[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![TypeScript](https://img.shields.io/badge/TypeScript-first-3178C6.svg)](https://www.typescriptlang.org/)
+```bash
+npm install -g @pokelabshq/poke-cli
+```
 
-## What We Build
+## Commands
 
-| Project | Description | Tech |
-|---------|-------------|------|
-| [council](https://github.com/pokelabshq/council) | AI Council — multi-agent coordination framework | Python |
-| [poke](https://github.com/pokelabshq/poke) | Landing page, CLI, and Link Preview API | TypeScript, Node.js |
-| [brand](https://github.com/pokelabshq/brand) | Brand assets — logo, colors, typography | — |
-| [cli](https://github.com/pokelabshq/cli) | Legacy CLI tools | Python |
+| Command | Description |
+|---------|-------------|
+| `poke status` | Check all service health |
+| `poke preview <url>` | Extract title, description, image from URL |
+| `poke repos` | List all Poke Labs repos |
+| `poke deps` | Check for outdated dependencies |
+| `poke deploy` | Restart all services |
+| `poke help` | Show help |
+
+## Examples
+
+```bash
+# Check if all services are up
+poke status
+
+# Preview a URL
+poke preview https://github.com
+
+# List all repos
+poke repos
+```
 
 ## Services
 
-### Link Preview API
-Extract title, description, and Open Graph metadata from any URL.
+| Port | Service |
+|------|---------|
+| 8765 | Link Preview API |
+| 8766 | Poke Labs Site |
+| 8770 | Poke Bot |
+| 8780 | Skills Hub |
+| 8790 | Pricing API |
 
-```
-POST /api/preview
-{"url": "https://example.com"}
+## API
 
-# Returns: title, description, image, site_name, favicon
-```
+### Link Preview
 
-- **Free tier:** 3 requests/day per IP
-- **Unlimited:** Pay via x402 USDC on Base
-- **Wallet:** `0xca3d86e4EDE205E6d72496BC2919c88b994B6beF`
-
-### Poke CLI
 ```bash
-npm install -g @pokelabshq/poke-cli
-poke status      # Check all services
-poke preview https://github.com  # Preview a URL
-poke repos       # List all repos
-poke deps        # Check dependencies
+curl -X POST http://localhost:8766/api/preview \
+  -H "Content-Type: application/json" \
+  -d '{"url": "https://github.com"}'
 ```
 
-## Architecture
+### Pricing Quote
 
+```bash
+curl "http://localhost:8790/api/quote?service=link-preview&requests=5000"
 ```
-┌─────────────────┐     ┌──────────────────┐
-│   Poke CLI      │────▶│  Link Preview API │ :8766
-│  (Node.js)      │     │  (Python)         │
-└─────────────────┘     └──────────────────┘
-         │
-         ▼
-┌─────────────────┐     ┌──────────────────┐
-│  Poke Bot       │     │  Skills Hub API   │ :8780
-│  (GitHub)       │     │  (Python)         │
-└─────────────────┘     └──────────────────┘
-```
-
-## Contributing
-
-1. Fork the repo
-2. Create a feature branch: `git checkout -b feat/my-feature`
-3. Commit: `git commit -m "feat: my feature"`
-4. Push: `git push origin feat/my-feature`
-5. Open a PR
 
 ## License
 
-MIT © Poke Labs
+MIT — Poke Labs (pokelabs.org)
